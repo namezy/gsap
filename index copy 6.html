@@ -27,7 +27,7 @@
   </head>
   <body>
     <div id="app">
-      <h2>非动画配置项</h2>
+      <h2>动画默认值和非动画配置项</h2>
       <button id="btn">播放</button>
       <div class="box red">red</div>
       <div class="box blue">blue</div>
@@ -35,26 +35,15 @@
     </div>
     <script type="module">
       import { gsap } from "gsap"
-      //默认单位
-      // gsap.config({
-      //   units: {
-      //     x: "vw",
-      //   },
-      // })
-      // btn.addEventListener("click", () => {
-      //   const tween1 = gsap.to(".red", {
-      //     x: 100,
-      //   })
-      // })
-
-      //===
-      gsap.config({
-        force3D: true,//现象是移动过程中使用translate3D,结束后变回translate
+      //全局默认值
+      gsap.defaults({
+        duration: 1,
+        x: 500,
       })
       btn.addEventListener("click", () => {
-        const tween1 = gsap.to(".red", {
-          xPercent: 200, //只有x和y带有percent
-        })
+        const tween1 = gsap.to(".red", {})
+        const tween2 = gsap.to(".blue", {})
+        const tween3 = gsap.to(".green", {})
       })
     </script>
   </body>

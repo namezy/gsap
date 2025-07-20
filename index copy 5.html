@@ -27,7 +27,7 @@
   </head>
   <body>
     <div id="app">
-      <h2>非动画配置项</h2>
+      <h2>钩子函数</h2>
       <button id="btn">播放</button>
       <div class="box red">red</div>
       <div class="box blue">blue</div>
@@ -35,25 +35,28 @@
     </div>
     <script type="module">
       import { gsap } from "gsap"
-      //默认单位
-      // gsap.config({
-      //   units: {
-      //     x: "vw",
-      //   },
-      // })
-      // btn.addEventListener("click", () => {
-      //   const tween1 = gsap.to(".red", {
-      //     x: 100,
-      //   })
-      // })
 
-      //===
-      gsap.config({
-        force3D: true,//现象是移动过程中使用translate3D,结束后变回translate
-      })
       btn.addEventListener("click", () => {
-        const tween1 = gsap.to(".red", {
-          xPercent: 200, //只有x和y带有percent
+        const tween = gsap.to(".red", {
+          x: 500,
+          duration: 2, //不写ease同power1.out 默认减速动画
+          onStart(...args) {
+            console.log("start")
+            console.log(args)
+          },
+          onStartParams: ["start param1", "start param2"],
+          onComplete(...args) {
+            console.log("complete")
+            console.log(args)
+          },
+          onCompleteParams: ["complete param1", "complete param2"],
+          onUpdate(){
+            // console.log(this); //这里的this就是tween
+            //获取操作的dom
+            const target = this.targets()[0] //this.targets()方法获取到所有的动画元素 
+            const x = gsap.getProperty(target,'x') //获取动画属性的值
+            console.log(x);
+          }
         })
       })
     </script>
