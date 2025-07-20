@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>工具方法</h2>
+      <div id="content1"></div>
+      <div id="content2"></div>
+      <div id="content3"></div>
+      <button id="btn1">播放</button>
+      <button id="btn2">暂停</button>
+      <button id="btn3">继续</button>
+      <button id="btn4">反向</button>
+      <div class="box red">red</div>
+      <div class="box blue">blue</div>
+      <div class="box green">green</div>
+    </div>
+    <script type="module">
+      import { gsap } from "gsap"
+
+      // btn1.addEventListener("click", () => {
+      //   const tween = gsap.to(".box", {
+      //     x: (index,ele)=>{
+      //       return (index+1)*200
+      //     },
+      //     duration: 1,
+      //   })
+      // })
+      document.addEventListener('mousemove',(e)=>{
+        content1.innerText = e.clientX
+        content2.innerText = gsap.utils.snap(50,e.clientX)
+        content3.innerText = gsap.utils.clamp(50,200,e.clientX)
+
+      })
+      btn1.addEventListener("click", () => {
+        const boxs = gsap.utils.toArray(".box")
+        boxs.forEach((ele, index) => {
+          gsap.to(ele, {
+            x: (index + 1) * 200,
+            duration:1
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
