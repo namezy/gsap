@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>非动画配置项</h2>
+      <button id="btn">播放</button>
+      <div class="box red">red</div>
+      <div class="box blue">blue</div>
+      <div class="box green">green</div>
+    </div>
+    <script type="module">
+      import { gsap } from "gsap"
+      //默认单位
+      // gsap.config({
+      //   units: {
+      //     x: "vw",
+      //   },
+      // })
+      // btn.addEventListener("click", () => {
+      //   const tween1 = gsap.to(".red", {
+      //     x: 100,
+      //   })
+      // })
+
+      //===
+      gsap.config({
+        force3D: true,//现象是移动过程中使用translate3D,结束后变回translate
+      })
+      btn.addEventListener("click", () => {
+        const tween1 = gsap.to(".red", {
+          xPercent: 200, //只有x和y带有percent
+        })
+      })
+    </script>
+  </body>
+</html>
