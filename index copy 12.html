@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 50px;
+        height: 50px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Media响应式</h2>
+      <button id="btn">播放</button>
+      <div class="wrapper">
+        <div class="box red">red</div>
+        <div class="box blue">blue</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+        <div class="box green">green</div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      const btnEl = document.querySelector("#btn")
+
+      btnEl.addEventListener("click", () => {
+        gsap.to(".box", {
+          x: 500,
+          duration: 1.2,
+          stagger: {
+            // each: 0.1,
+            amount: 1.2, //交错总时间
+          },
+        })
+      })
+    </script>
+  </body>
+</html>

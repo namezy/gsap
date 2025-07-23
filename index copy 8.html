@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>时间线</h2>
+      <button id="btn">播放</button>
+      <div class="box red">red</div>
+      <div class="box blue">blue</div>
+      <div class="box green">green</div>
+    </div>
+    <script type="module">
+      import { gsap } from "gsap"
+      //时间线的作用是让前面一个动画结束后再开始下一个动画，就避免使用delay了
+      // const tl = gsap.timeline()
+      /*       btn.addEventListener("click", () => {
+        tl.to(".red", {
+          x: 500,
+          duration: 1,
+        })
+        tl.to(".blue", {
+          x: 500,
+          duration: 1,
+        })
+        tl.to(".green", {
+          x: 500,
+          duration: 1,
+        })
+      }) */
+      //链式操作
+      /*   btn.addEventListener("click", () => {
+        tl.to(".red", {
+          x: 500,
+          duration: 1,
+        })
+          .to(".blue", {
+            x: 500,
+            duration: 1,
+          })
+          .to(".green", {
+            x: 500,
+            duration: 1,
+          })
+      }) */
+      //时间线中默认配置项
+      //defaults里面的属性这里针对的是时间线上的每一个元素,defaults外面是针对时间线整体的
+
+      //如果像下面代码创建时间线又可能元素的x不是在0，
+      /*   const tl = gsap.timeline({
+        defaults: {
+          x: 500,
+          duration: 1,
+        },
+        repeat: -1,
+        yoyo: true,
+      })
+      btn.addEventListener("click", () => {
+        tl.to(".red", {}).to(".blue", {}).to(".green", {})
+      }) */
+
+      //如果是这样写repeat: -1 和 yoyo: true 导致时间线自动播放
+      //当你创建时间线 tl 时，repeat: -1（无限循环）和 yoyo: true（往返播放）会让时间线 立即开始播放（即使没有调用 play()）。
+      //这意味着 时间线在 btn 被点击之前就已经运行，red 可能已经完成了一个完整的 0 → 500 → 0 周期
+      /*   const tl = gsap.timeline({
+        defaults: {
+          x: 500,
+          duration: 1,
+           repeat: -1,
+        yoyo: true,
+        },
+      })
+      btn.addEventListener("click", () => {
+        tl.to(".red", {}).to(".blue", {}).to(".green", {})
+      }) */
+
+      //总结最好在事件中创建时间线
+    </script>
+  </body>
+</html>

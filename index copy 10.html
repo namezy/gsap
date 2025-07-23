@@ -13,8 +13,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: red;
-        margin: 400px 0;
       }
       .red {
         background-color: red;
@@ -29,19 +27,44 @@
   </head>
   <body>
     <div id="app">
-      <h2>Scroll平滑与位置</h2>
+      <h2>对象的属性变化</h2>
       <button id="btn">播放</button>
-      <div class="box red">red</div>
+      <div id="content"></div>
+      <!-- <div class="box red">red</div>
       <div class="box blue">blue</div>
-      <div class="box green">green</div>
+      <div class="box green">green</div> -->
     </div>
-
     <script type="module">
       import { gsap } from "gsap"
-      import { ScrollTrigger } from "gsap/ScrollTrigger"
-      import { ScrollSmoother } from "gsap/ScrollTrigger"
-      gsap.registerPlugin(ScrollTrigger)
       const btnEl = document.querySelector("#btn")
+      const counter = {
+        count: 1,
+      }
+      btnEl.addEventListener("click", () => {
+        /* snap 对象的属性名是counter中变化的属性名 值是步伐 */
+        // gsap.to(counter, {
+        //   count: 100,
+        //   duration: 5,
+        //   snap: {
+        //     count: 1,
+        //   },
+        //   onUpdate() {
+        //     content.innerText = counter.count
+        //   },
+        // })
+
+        gsap.fromTo(
+          content,
+          {
+            innerText: 0,
+          },
+          {
+            innerText: 100,
+            duration: 5,
+            snap: { innerText: 1 },
+          }
+        )
+      })
     </script>
   </body>
 </html>

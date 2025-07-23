@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        margin: 400px 0;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>ScrollTrigger</h2>
+      <button id="btn">播放</button>
+      <div class="box red">red</div>
+      <div class="box blue">blue</div>
+      <div class="box green">green</div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      import { ScrollTrigger } from "gsap/ScrollTrigger"
+      gsap.registerPlugin(ScrollTrigger)
+      const btnEl = document.querySelector("#btn")
+      /* scrollTrigger  当.red进入到视野中触发这个动画开始 
+      这个参数表示将动画与一个滚动触发器关联起来，这个触发器是基于类名为"red"的元素。
+      */
+      // gsap.to(".red", {
+      //   x: 500,
+      //   duration: 2,
+      //   scrollTrigger: ".red",
+      // })
+      // gsap.to(".blue", {
+      //   x: 500,
+      //   duration: 2,
+      //   scrollTrigger: ".blue",
+      // })
+      // gsap.to(".green", {
+      //   x: 500,
+      //   duration: 2,
+      //   scrollTrigger: ".green",
+      // })
+      // btnEl.addEventListener("click", () => {})
+
+      // gsap.to(".blue", {
+      //   x: 500,
+      //   duration: 2,
+      //   scrollTrigger: {
+      //     trigger: ".blue",
+      //     start: 100,//滚动条的位置
+      //   },
+      // })
+
+      gsap.to(".blue", {
+        x: 500,
+        duration: 2,
+        scrollTrigger: {
+          trigger: ".blue",
+          start: "top bottom-=500", //第一个参数是动画元素。第二个元素是浏览器
+          // scrub:0.1,
+          // pin:'.red',
+          snap: 1/3
+        },
+      })
+    </script>
+  </body>
+</html>

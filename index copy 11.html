@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Media响应式</h2>
+      <button id="btn">播放</button>
+      <div class="box red">red</div>
+      <!-- <div class="box blue">blue</div>
+      <div class="box green">green</div> -->
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      const btnEl = document.querySelector("#btn")
+
+      const mm = gsap.matchMedia()
+      /* 第一个参数响应式条件，第二个参数触发的回调，第三个参数作用返回 */
+      // mm.add("(width>=800px)", () => {
+      //   gsap.to("#app .box", {
+      //     x: 500,
+      //     duration: 2,
+      //   })
+      // })
+
+      // mm.add(
+      //   "(width>=800px)",
+      //   () => {
+      //     gsap.to(" .box", {
+      //       x: 500,
+      //       duration: 2,
+      //     })
+      //   },
+      //   app
+      // )
+
+      /* 区分移动端和pc端  必须要写出两个响应式条件，不然有的响应式下不会生效*/
+      mm.add(
+        {
+          isDesktop: "(width>=800px)",
+          isMobile: "(width<800px)",
+        },
+        (context) => {
+          const { isDesktop } = context.conditions
+          console.log(isDesktop)
+          gsap.to(".red", {
+            x: isDesktop ? 500 : 100,
+            duration: 2,
+          })
+          //清理函数-触发时机 当动画触发后，响应式条件不成立时触发
+          return () => {
+            console.log("clean")
+          }
+        }
+      )
+
+      btnEl.addEventListener("click", () => {
+        mm.revert() //清除所有响应式动画
+      })
+    </script>
+  </body>
+</html>
