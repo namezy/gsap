@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Flip 列表重排</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+     <h1>Flip</h1>
+    <button class="btn">点击</button>
+    <div class="container">
+      <div class="box red">red</div>
+      <div class="box blue">blue</div>
+      <div class="box green">green</div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      import { Flip } from "gsap/Flip"
+      gsap.registerPlugin(Flip)
+      const btn = document.querySelector(".btn")
+      const container = document.querySelector(".container")
+      const red = document.querySelector(".red")
+      const blue = document.querySelector(".blue")
+      const green = document.querySelector(".green")
+      btn.addEventListener("click", () => {
+        const state = Flip.getState([red, blue, green])
+        container.style.display = "flex"
+        Flip.from(state, {
+          duration: 0.5,
+        })
+      })
+    </script>
+  </body>
+</html>

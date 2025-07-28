@@ -2,25 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Text 文字转换</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       .box {
         width: 100px;
         height: 100px;
         color: white;
-        display: flex;
         justify-content: center;
         align-items: center;
-        background-color: red;
-        margin: 400px 0;
       }
       .red {
         background-color: red;
+        color:white;
       }
       .blue {
         background-color: blue;
+         color:white;
       }
       .green {
         background-color: green;
@@ -28,22 +30,5 @@
     </style>
   </head>
   <body>
-    <div id="app">
-      <h2>Scroll平滑与位置</h2>
-      <button id="btn">播放</button>
-      <div class="box red">red</div>
-      <div class="box blue">blue</div>
-      <div class="box green">green</div>
-    </div>
-
-    <script type="module">
-      import { gsap } from "gsap"
-      import { ScrollTrigger } from "gsap/ScrollTrigger"
-      import { ScrollSmoother } from "gsap/ScrollTrigger"
-      gsap.registerPlugin(ScrollTrigger,ScrollSmoother)
-      const btnEl = document.querySelector("#btn")
-
-      ScrollSmoother.create({})
-    </script>
   </body>
 </html>

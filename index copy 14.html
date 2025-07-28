@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrollSmoother Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+      }
+
+      #smooth-wrapper {
+        width: 100%;
+        /* overflow: hidden; */
+        background-color: aquamarine;
+        /* position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%; */
+      }
+
+      #smooth-content {
+        /* 内容样式 */
+        /* height: 3000px; */
+        /* 关键修复：确保高度计算正确 */
+        /* min-height: calc(100% + 1px); */
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        margin: 400px 0;
+        /* position: absolute; */
+      }
+      .red {
+        background-color: red;
+        /* left: 50px;
+        top: 500px; */
+      }
+      .blue {
+        background-color: blue;
+        /* left: 150px;
+        top: 500px; */
+      }
+      .green {
+        background-color: green;
+        /* left: 300px;
+        top: 500px; */
+      }
+      .flex {
+        display: inline-flex;
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <h2>Scroll平滑与位置</h2>
+        <button id="btn">播放</button>
+        <div class="box red" data-lag="0.5">red</div>
+        <!-- <div class="flex" data-speed="0.5">1</div>
+        <div class="flex" data-speed="1" data-lag="0.2">2</div>
+        <div class="flex" data-speed="1.5">3</div> -->
+        <div class="box blue">blue</div>
+        <div class="box green">green</div>
+
+        <div>adasdkasldhasdfkqe10238012740720340293</div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      import { ScrollTrigger } from "gsap/ScrollTrigger"
+      import { ScrollSmoother } from "gsap/ScrollSmoother"
+
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
+
+      // 创建ScrollSmoother实例
+      /* 如果不加 
+      * {
+        margin: 0;
+        padding: 0;
+      } 
+        页面的内容展示不全
+      */
+      /* 
+     当使用normalizeScroll: true时 body必须设置overflow: hidden。
+     #smooth-wrapper必须是fixed定位，宽高为视口大小，overflow必须为hidden。这两个属性属性不设置会默认设置
+     #smooth-content是内容容器，高度不需要设置，由里面的内容撑起
+     */
+
+      /* data-lag 让元素 比正常滚动慢一点，产生“拖拽”或“惯性”效果。 */
+      const smoother = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 0.5, // 平滑滚动时间
+        effects: true, // 启用效果
+        // normalizeScroll: true, // 阻止原生滚动，使用平滑滚动
+        // ignoreMobileResize: true, // 忽略移动设备resize
+        // preventDefault: true,
+        onUpdate: (self) => {
+          console.log("滚动位置:", self.scrollTop())
+        },
+      })
+
+      // btn.addEventListener("click", () => {
+      //   // 滚动到绿色盒子
+      //   smoother.scrollTo(".blue", {
+      //     duration: 2,
+      //     offsetY: 100, // 向上偏移100px
+      //   })
+      // })
+    </script>
+  </body>
+</html>

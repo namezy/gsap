@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+      }
+      .red {
+        background-color: red;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Flip</h2>
+      <button id="btn">播放</button>
+      <div class="parent">
+        <div class="box red">red</div>
+        <div class="box blue">blue</div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      import { Flip } from "gsap/Flip"
+      gsap.registerPlugin(Flip)
+      const btn = document.querySelector("#btn")
+      const red = document.querySelector(".red")
+      const blue = document.querySelector(".blue")
+      const parent = document.querySelector(".parent")
+      btn.addEventListener("click", () => {
+        const state = Flip.getState([red, blue])
+        //获取parent下的第一个元素和第二个元素的状态
+        const child1 = parent.children[0]
+        const child2 = parent.children[1]
+        //交换位置
+        //下面insertBefore的用法是将child2插入到child1之前
+        parent.insertBefore(child2, child1)
+        Flip.from(state, {
+          duration: 1,
+          // spin:true
+          
+        })
+      })
+    </script>
+  </body>
+</html>

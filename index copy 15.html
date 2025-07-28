@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Flip 列表重排</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .item {
+        background: white;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        will-change: transform;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .item:hover {
+        background: #f0f0f0;
+      }
+
+      .controls {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+      }
+
+      button {
+        padding: 8px 16px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Flip</h1>
+    <div class="container">
+      <div id="list">
+        <div class="item" data-id="1">项目 1 <span>☰</span></div>
+        <div class="item" data-id="2">项目 2 <span>☰</span></div>
+        <div class="item" data-id="3">项目 3 <span>☰</span></div>
+        <div class="item" data-id="4">项目 4 <span>☰</span></div>
+        <div class="item" data-id="5">项目 5 <span>☰</span></div>
+      </div>
+
+      <div class="controls">
+        <button id="shuffleBtn">随机排序</button>
+        <button id="reverseBtn">反转顺序</button>
+      </div>
+    </div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      import { Flip } from "gsap/Flip"
+      gsap.registerPlugin(Flip)
+      const list = document.getElementById("list")
+      const shuffleBtn = document.getElementById("shuffleBtn")
+      const reverseBtn = document.getElementById("reverseBtn")
+
+      // 随机排序
+      shuffleBtn.addEventListener("click", () => {
+        const items = Array.from(list.children)
+        const state = Flip.getState(items)
+
+        // Fisher-Yates 洗牌算法
+        for (let i = items.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          console.log(j);
+          list.appendChild(items[j])
+        }
+
+        Flip.from(state, {
+          duration: 0.6,
+          ease: "power2.inOut",
+          stagger: 0.05,
+          // absolute: true,
+          onComplete: () => console.log("随机排序完成"),
+        })
+      })
+
+      // 反转顺序
+      reverseBtn.addEventListener("click", () => {
+        const items = Array.from(list.children)
+        const state = Flip.getState(items,)
+
+        items.reverse().forEach((item) => list.appendChild(item))
+
+        Flip.from(state, {
+          duration: 0.5,
+          ease: "power2.inOut",
+          stagger: 0.05,
+          // absolute: true,
+        })
+      })
+
+      // 拖拽排序功能
+      let draggedItem = null
+
+      document.querySelectorAll(".item").forEach((item) => {
+        item.setAttribute("draggable", true)
+
+        item.addEventListener("dragstart", function () {
+          draggedItem = this
+          setTimeout(() => (this.style.opacity = "0.4"), 0)
+        })
+
+        item.addEventListener("dragend", function () {
+          this.style.opacity = "1"
+        })
+
+        item.addEventListener("dragover", function (e) {
+          e.preventDefault()
+        })
+
+        item.addEventListener("dragenter", function (e) {
+          e.preventDefault()
+          if (this !== draggedItem) {
+            const items = Array.from(list.children)
+            const state = Flip.getState(items)
+
+            const draggedIndex = items.indexOf(draggedItem)
+            const targetIndex = items.indexOf(this)
+
+            if (draggedIndex < targetIndex) {
+              list.insertBefore(draggedItem, this.nextSibling)
+            } else {
+              list.insertBefore(draggedItem, this)
+            }
+
+            Flip.from(state, {
+              duration: 0.3,
+              ease: "power2.inOut",
+              // absolute: true,
+            })
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

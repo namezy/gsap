@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text 文字转换</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+        color:white;
+      }
+      .blue {
+        background-color: blue;
+         color:white;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SplitText</h1>
+    <button class="btn">点击</button>
+    <div class="text">this is an text</div>
+    <script type="module">
+      import { gsap } from "gsap"
+      import { SplitText } from "gsap/TextPlugin"
+      gsap.registerPlugin(TextPlugin)
+      const btn = document.querySelector(".btn")
+      btn.addEventListener("click", () => {
+        gsap.to(".text", {
+          duration:2,
+          text: {
+            value: "hello world! what is happen",
+            // delimiter: " ",
+            newClass:'red',
+            oldClass:'blue',
+            padSpace:true,//当新的长度大，旧的长度小时，会在变化时把旧的长度补齐到新的长度
+            rtl:true,//从右向左变化
+          },
+          // stagger:0.2
+        })
+      })
+    </script>
+  </body>
+</html>
