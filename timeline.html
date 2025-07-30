@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变换的属性</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        color: white;
+        justify-content: center;
+        align-items: center;
+      }
+      .red {
+        background-color: red;
+        color: white;
+      }
+      .blue {
+        background-color: blue;
+        color: white;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn1">转换</button>
+    <button class="btn2">反转</button>
+    <div class="red box">1</div>
+    <div class="blue box">1</div>
+    <div class="green box">13</div>
+
+    <script type="module">
+      import { gsap } from "gsap"
+      const tl = gsap.timeline()
+      const btn1 = document.querySelector(".btn1")
+      const btn2 = document.querySelector(".btn2")
+      btn1.addEventListener("click", () => {
+        tl.to(".red", {
+          duration: 2,
+          x: 200,
+          delay:1
+        })
+          .to(
+            ".blue",
+            {
+              duration: 1,
+              x: 200,
+            },
+            "<1",//相对于动画开始，与delay无关
+          )
+          .to(
+            ".green",
+            {
+              duration: 1,
+              x: 200,
+            },
+            ">1"
+          )
+      })
+
+      // btn2.addEventListener('click',()=>{
+      //   gsap.reserve()
+      // })
+    </script>
+  </body>
+</html>

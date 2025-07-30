@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="grandparent">
+      Grandparent
+      <div id="parent">
+        Parent
+        <button id="child">Click me</button>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("grandparent")
+        .addEventListener("click", function (e) {
+          console.log(
+            "Grandparent handler - currentTarget:",
+            e.currentTarget.id
+          ) // "grandparent"
+          console.log("Grandparent handler - target:", e.target.id) // "child"（实际点击的元素）
+        })
+
+      document.getElementById("parent").addEventListener("click", function (e) {
+        console.log("Parent handler - currentTarget:", e.currentTarget.id) // "parent"
+        console.log("Parent handler - target:", e.target.id) // "child"（实际点击的元素）
+      })
+
+      document.getElementById("child").addEventListener("click", function (e) {
+        console.log("Child handler - currentTarget:", e.currentTarget.id) // "child"
+        console.log("Child handler - target:", e.target.id) // "child"（自己触发的）
+      })
+    </script>
+  </body>
+</html>
